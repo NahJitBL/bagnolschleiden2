@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating Skull</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="skullCanvas" width="400" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('skullCanvas');
+    const ctx = canvas.getContext('2d');
+    const skullImage = new Image();
+    skullImage.src = 'https://emojicdn.elk.sh/👻';
+
+    let angle = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Save the current drawing state
+      ctx.save();
+      
+      // Translate to the center of the canvas
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      
+      // Rotate the canvas
+      ctx.rotate(angle);
+      
+      // Draw the skull image
+      ctx.drawImage(skullImage, -50, -50, 100, 100);
+      
+      // Restore the previous drawing state
+      ctx.restore();
+      
+      // Increase the angle for next frame
+      angle += Math.PI / 180; // Rotate by 1 degree per frame
+      
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>
